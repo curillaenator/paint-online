@@ -4,30 +4,37 @@ import { batch } from "react-redux";
 import type { TThunk } from "../../types/types";
 
 interface IRepoState {
+  tool: string;
+  color: string;
   lineWidth: string;
-  // lineWidthWarn: boolean;
 }
 
 const initialState: IRepoState = {
+  tool: "brush",
+  color: "#131313",
   lineWidth: "1",
-  // lineWidthWarn: false,
 };
 
 const mainSlice = createSlice({
   name: "repo",
   initialState,
   reducers: {
+    setTool: (state, action: PayloadAction<string>) => {
+      state.tool = action.payload;
+    },
+
+    setColor: (state, action: PayloadAction<string>) => {
+      state.color = action.payload;
+    },
+
     setLineWidth: (state, action: PayloadAction<string>) => {
       state.lineWidth = action.payload;
     },
-    // setLineWidthWarn: (state, action: PayloadAction<boolean>) => {
-    //   state.lineWidthWarn = action.payload;
-    // },
   },
 });
 export const main = mainSlice.reducer;
 
-export const { setLineWidth } = mainSlice.actions;
+export const { setTool, setLineWidth, setColor } = mainSlice.actions;
 
 // THUNKS
 // type THandleLineWidth = (value: string) => TThunk;

@@ -5,14 +5,18 @@ import { colors } from "../../../colors/colors";
 
 import type { IButton } from "../../../types/types";
 
-const ButtonStyled = styled.button`
+interface IButtonStyled {
+  active: boolean | undefined;
+}
+
+const ButtonStyled = styled.button<IButtonStyled>`
   width: 25px;
   height: 25px;
 
   .svg_icon {
     width: 100%;
     height: 100%;
-    fill: ${colors.dark};
+    fill: ${({ active }) => (active ? colors.peach : colors.dark)};
     transition: 0.08s linear;
   }
 
@@ -29,9 +33,9 @@ const ButtonStyled = styled.button`
   }
 `;
 
-const BtnIcon: FC<IButton> = ({ title, icon, handler }) => {
+const BtnIcon: FC<IButton> = ({ title, icon, active, handler }) => {
   return (
-    <ButtonStyled onClick={handler} title={title}>
+    <ButtonStyled onClick={handler} title={title} active={active}>
       {icon && icon}
     </ButtonStyled>
   );

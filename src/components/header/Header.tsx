@@ -7,6 +7,8 @@ import Logo from "./logo";
 import Tools from "./tools";
 import Settings from "./settings";
 
+import { setTool } from "../../redux/reducers/main";
+
 import { icons } from "../../assets/icons";
 
 const HeaderStyled = styled.header`
@@ -27,14 +29,39 @@ const HeaderStyled = styled.header`
 
 const Header: FC = () => {
   const dispatch = useAppDispatch();
+  const toolID = useAppSelector((state) => state.main.tool);
 
   const tools = [
-    { id: "brush", title: "Кисть", icon: icons.brush, handler: () => {} },
-    { id: "rect", title: "Ректангл", icon: icons.rect, handler: () => {} },
-    { id: "circle", title: "Круг", icon: icons.circle, handler: () => {} },
-    { id: "line", title: "Линия", icon: icons.line, handler: () => {} },
-    { id: "eraser", title: "Резинка", icon: icons.eraser, handler: () => {} },
-    { id: "color", title: "Цвет", icon: icons.colorpick, handler: () => {} },
+    {
+      id: "brush",
+      title: "Кисть",
+      icon: icons.brush,
+      handler: () => dispatch(setTool("brush")),
+    },
+    {
+      id: "rect",
+      title: "Ректангл",
+      icon: icons.rect,
+      handler: () => dispatch(setTool("rect")),
+    },
+    {
+      id: "circle",
+      title: "Круг",
+      icon: icons.circle,
+      handler: () => dispatch(setTool("circle")),
+    },
+    {
+      id: "line",
+      title: "Линия",
+      icon: icons.line,
+      handler: () => dispatch(setTool("line")),
+    },
+    {
+      id: "eraser",
+      title: "Резинка",
+      icon: icons.eraser,
+      handler: () => dispatch(setTool("eraser")),
+    },
   ];
 
   const controls = [
@@ -46,7 +73,7 @@ const Header: FC = () => {
   return (
     <HeaderStyled>
       <div className="upper">
-        <Tools items={tools} />
+        <Tools items={tools} color selected={toolID} />
 
         <Logo />
 

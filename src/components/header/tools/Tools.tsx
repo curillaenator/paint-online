@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import styled from "styled-components";
 
 import BtnIcon from "../../buttons/btnIcon";
+import ColorPick from "../colorPick";
 
 import { IToolsItem } from "../../../types/types";
 
@@ -13,9 +14,11 @@ const ToolsStyled = styled.div`
 
 interface ITools {
   items: IToolsItem[];
+  color?: boolean;
+  selected?: string;
 }
 
-const Tools: FC<ITools> = ({ items }) => {
+const Tools: FC<ITools> = ({ items, color = false, selected }) => {
   return (
     <ToolsStyled>
       {items.map((item) => (
@@ -23,9 +26,12 @@ const Tools: FC<ITools> = ({ items }) => {
           title={item.title}
           icon={item.icon}
           handler={item.handler}
+          active={item.id === selected}
           key={item.id}
         />
       ))}
+
+      {color && <ColorPick />}
     </ToolsStyled>
   );
 };
