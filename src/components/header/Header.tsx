@@ -1,41 +1,33 @@
 import React, { FC } from "react";
 import styled from "styled-components";
 
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+
+import Logo from "./logo";
 import Tools from "./tools";
+import Settings from "./settings";
 
 import { icons } from "../../assets/icons";
-import { colors } from "../../colors/colors";
-
-const LogoStyled = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  padding: 0 1rem;
-
-  .svg_logo {
-    width: 3rem;
-    height: 3rem;
-    fill: ${colors.peach};
-  }
-
-  .logotext {
-    color: ${colors.dark};
-    user-select: none;
-  }
-`;
 
 const HeaderStyled = styled.header`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  height: 6rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   padding: 0 2rem;
+
+  .upper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 5rem;
+  }
+
+  .lower {
+  }
 `;
 
 const Header: FC = () => {
+  const dispatch = useAppDispatch();
+
   const tools = [
     { id: "brush", title: "Кисть", icon: icons.brush, handler: () => {} },
     { id: "rect", title: "Ректангл", icon: icons.rect, handler: () => {} },
@@ -53,14 +45,17 @@ const Header: FC = () => {
 
   return (
     <HeaderStyled>
-      <Tools items={tools} />
+      <div className="upper">
+        <Tools items={tools} />
 
-      <LogoStyled>
-        {icons.logo}
-        <h1 className="logotext font_title">Paint Online</h1>
-      </LogoStyled>
+        <Logo />
 
-      <Tools items={controls} />
+        <Tools items={controls} />
+      </div>
+
+      <div className="lower">
+        <Settings />
+      </div>
     </HeaderStyled>
   );
 };
