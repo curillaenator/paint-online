@@ -12,7 +12,7 @@ module.exports = {
     clean: true,
   },
   devServer: {
-    port: 6000,
+    port: 3000,
     historyApiFallback: true,
   },
   plugins: [

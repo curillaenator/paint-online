@@ -4,13 +4,20 @@ import type { TState } from "../redux/store";
 
 // COMMON
 
-export interface IBtnPrimary {
-  title: string | number;
+export interface IButton {
+  title: string;
   icon?: ReactNode;
   param?: number;
   active?: boolean;
   disabled?: boolean;
-  handler: (param?: number) => void;
+  handler: () => void;
+}
+
+export interface IToolsItem {
+  id: string | number;
+  title: string;
+  icon: ReactNode;
+  handler: () => void;
 }
 
 // REDUX & STATE
