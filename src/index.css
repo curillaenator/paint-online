@@ -24,6 +24,10 @@ input {
   border: none;
 }
 
+.font_title {
+  font-family: 'Oswald', sans-serif;
+}
+
 .temptemp {
   background-color: #ff983d;
 }

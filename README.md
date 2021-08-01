@@ -17,7 +17,7 @@
 
 ## Описание:
 
-ReactJS SPA на Webpack (не cra), развернуто на GitHubPages
+<!-- ReactJS SPA на Webpack (не cra), развернуто на GitHubPages -->
 
 ## Локальный запуск:
 
