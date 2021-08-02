@@ -37,16 +37,16 @@ const Settings: FC = () => {
   return (
     <SettingsStyled>
       <label className="input-label font_title" htmlFor="lineWidth">
-        Толщина линии (от 1 до 4):
+        Толщина линии (от 1 до 20):
       </label>
       <input
         className="input-input"
         type="number"
         min="1"
-        max="4"
+        max="20"
         id="lineWidth"
         value={lineWidth}
-        onChange={(e) => dispatch(setLineWidth(e.target.value))}
+        onChange={(e) => dispatch(setLineWidth(+e.target.value))}
       />
     </SettingsStyled>
   );

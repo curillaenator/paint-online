@@ -1,12 +1,11 @@
-import React, { FC } from "react";
+import React, { FC, ReactNode } from "react";
 import styled from "styled-components";
 
-import { icons } from "../../../assets/icons";
 import { colors } from "../../../colors/colors";
 
-import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
+import { useAppDispatch } from "../../../hooks/hooks";
 
-import { setColor } from "../../../redux/reducers/main";
+import { TSetColor } from "../../../redux/reducers/main";
 
 interface IColorPickStyled {
   color: string;
@@ -51,18 +50,24 @@ const ColorPickStyled = styled.div<IColorPickStyled>`
   }
 `;
 
-const ColorPick: FC = () => {
+interface IColorPick {
+  labelID: string;
+  icon: ReactNode;
+  action: TSetColor;
+  stateColor: string;
+}
+
+const ColorPick: FC<IColorPick> = ({ labelID, icon, action, stateColor }) => {
   const dispatch = useAppDispatch();
-  const color = useAppSelector((state) => state.main.color);
 
   return (
-    <ColorPickStyled color={color}>
-      <label htmlFor="colorPick">{icons.colorpick}</label>
+    <ColorPickStyled color={stateColor}>
+      <label htmlFor={labelID}>{icon}</label>
       <input
         type="color"
-        id="colorPick"
-        value={color}
-        onChange={(e) => dispatch(setColor(e.target.value))}
+        id={labelID}
+        value={stateColor}
+        onChange={(e) => dispatch(action(e.target.value))}
       />
     </ColorPickStyled>
   );

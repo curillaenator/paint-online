@@ -55,12 +55,12 @@ const Header: FC = () => {
       icon: icons.line,
       handler: () => dispatch(setTool("line")),
     },
-    {
-      id: "eraser",
-      title: "Резинка",
-      icon: icons.eraser,
-      handler: () => dispatch(setTool("eraser")),
-    },
+    // {
+    //   id: "eraser",
+    //   title: "Резинка",
+    //   icon: icons.eraser,
+    //   handler: () => dispatch(setTool("eraser")),
+    // },
   ];
 
   const controls = [

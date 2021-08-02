@@ -6,6 +6,9 @@ import useDivSize from "../../hooks/useDivSize";
 
 import Brush from "../../tools/Brush";
 import Rect from "../../tools/Rect";
+import Circle from "../../tools/Circle";
+
+import { setCurTool } from "../../redux/reducers/main";
 
 import { colors } from "../../colors/colors";
 
@@ -33,11 +36,24 @@ const Canvas: FC = () => {
   const toolSelect = useCallback(() => {
     switch (selectedTool) {
       case "brush":
-        if (canvasRef.current) new Brush(canvasRef.current);
+        if (canvasRef.current) {
+          const brush = new Brush(canvasRef.current);
+          dispatch(setCurTool(brush));
+        }
         break;
 
       case "rect":
-        if (canvasRef.current) new Rect(canvasRef.current);
+        if (canvasRef.current) {
+          const rect = new Rect(canvasRef.current);
+          dispatch(setCurTool(rect));
+        }
+        break;
+
+      case "circle":
+        if (canvasRef.current) {
+          const circle = new Circle(canvasRef.current);
+          dispatch(setCurTool(circle));
+        }
         break;
 
       default:
