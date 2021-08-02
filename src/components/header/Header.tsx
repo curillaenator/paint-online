@@ -55,19 +55,19 @@ const Header: FC = () => {
       icon: icons.line,
       handler: () => dispatch(setTool("line")),
     },
-    // {
-    //   id: "eraser",
-    //   title: "Резинка",
-    //   icon: icons.eraser,
-    //   handler: () => dispatch(setTool("eraser")),
-    // },
+    {
+      id: "eraser",
+      title: "Резинка",
+      icon: icons.eraser,
+      handler: () => dispatch(setTool("eraser")),
+    },
   ];
 
-  const controls = [
-    { id: "undo", title: "Назад", icon: icons.undo, handler: () => {} },
-    { id: "redo", title: "Вперед", icon: icons.redo, handler: () => {} },
-    { id: "save", title: "Сохранить", icon: icons.save, handler: () => {} },
-  ];
+  // const controls = [
+  //   { id: "undo", title: "Назад", icon: icons.undo, handler: () => {} },
+  //   { id: "redo", title: "Вперед", icon: icons.redo, handler: () => {} },
+  //   { id: "save", title: "Сохранить", icon: icons.save, handler: () => {} },
+  // ];
 
   return (
     <HeaderStyled>
@@ -76,7 +76,7 @@ const Header: FC = () => {
 
         <Logo />
 
-        <Tools items={controls} />
+        {/* <Tools items={controls} /> */}
       </div>
 
       <div className="lower">

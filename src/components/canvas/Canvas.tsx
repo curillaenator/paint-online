@@ -1,14 +1,10 @@
-import React, { FC, useRef, useEffect, useCallback } from "react";
+import React, { FC, useRef, useEffect } from "react";
 import styled from "styled-components";
 
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import useDivSize from "../../hooks/useDivSize";
 
-import Brush from "../../tools/Brush";
-import Rect from "../../tools/Rect";
-import Circle from "../../tools/Circle";
-
-import { setCurTool } from "../../redux/reducers/main";
+import selector from "../../tools/Selector";
 
 import { colors } from "../../colors/colors";
 
@@ -33,37 +29,9 @@ const Canvas: FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [width, height, ref] = useDivSize();
 
-  const toolSelect = useCallback(() => {
-    switch (selectedTool) {
-      case "brush":
-        if (canvasRef.current) {
-          const brush = new Brush(canvasRef.current);
-          dispatch(setCurTool(brush));
-        }
-        break;
-
-      case "rect":
-        if (canvasRef.current) {
-          const rect = new Rect(canvasRef.current);
-          dispatch(setCurTool(rect));
-        }
-        break;
-
-      case "circle":
-        if (canvasRef.current) {
-          const circle = new Circle(canvasRef.current);
-          dispatch(setCurTool(circle));
-        }
-        break;
-
-      default:
-        break;
-    }
-  }, [selectedTool]);
-
   useEffect(() => {
-    if (canvasRef.current) toolSelect();
-  }, [selectedTool]);
+    if (canvasRef.current) selector(selectedTool, canvasRef.current, dispatch);
+  }, [selectedTool, dispatch]);
 
   return (
     <CanvasStyled ref={ref}>
