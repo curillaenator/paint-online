@@ -8,11 +8,11 @@ export const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: {
         // Ignore these action types
-        ignoredActions: ["main/setCurTool"],
+        ignoredActions: ["main/setCurTool", "main/setCanvas"],
         // Ignore these field paths in all actions
         // ignoredActionPaths: ["payload.canvas"],
         // Ignore these paths in the state
-        ignoredPaths: ["main.curTool"],
+        ignoredPaths: ["main.curTool", "main.canvas"],
       },
     }),
 });

@@ -7,7 +7,7 @@ import Logo from "./logo";
 import Tools from "./tools";
 import Settings from "./settings";
 
-import { setTool } from "../../redux/reducers/main";
+import { setTool, undo, redo } from "../../redux/reducers/main";
 
 import { icons } from "../../assets/icons";
 
@@ -63,11 +63,21 @@ const Header: FC = () => {
     },
   ];
 
-  // const controls = [
-  //   { id: "undo", title: "Назад", icon: icons.undo, handler: () => {} },
-  //   { id: "redo", title: "Вперед", icon: icons.redo, handler: () => {} },
-  //   { id: "save", title: "Сохранить", icon: icons.save, handler: () => {} },
-  // ];
+  const controls = [
+    {
+      id: "undo",
+      title: "Назад",
+      icon: icons.undo,
+      handler: () => dispatch(undo()),
+    },
+    {
+      id: "redo",
+      title: "Вперед",
+      icon: icons.redo,
+      handler: () => dispatch(redo()),
+    },
+    { id: "save", title: "Сохранить", icon: icons.save, handler: () => {} },
+  ];
 
   return (
     <HeaderStyled>
@@ -76,7 +86,7 @@ const Header: FC = () => {
 
         <Logo />
 
-        {/* <Tools items={controls} /> */}
+        <Tools items={controls} />
       </div>
 
       <div className="lower">

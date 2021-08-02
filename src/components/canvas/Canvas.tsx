@@ -1,8 +1,10 @@
-import React, { FC, useRef, useEffect } from "react";
+import React, { FC, useRef, useEffect, useLayoutEffect } from "react";
 import styled from "styled-components";
 
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import useDivSize from "../../hooks/useDivSize";
+
+import { setCanvas, setUndoList } from "../../redux/reducers/main";
 
 import selector from "../../tools/Selector";
 
@@ -24,14 +26,25 @@ const CanvasStyled = styled.div`
 
 const Canvas: FC = () => {
   const dispatch = useAppDispatch();
-  const selectedTool = useAppSelector((state) => state.main.tool);
+  const { tool, undoList } = useAppSelector((state) => state.main);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [width, height, ref] = useDivSize();
 
+  useLayoutEffect(() => {
+    if (canvasRef.current) dispatch(setCanvas(canvasRef.current));
+  }, [dispatch]);
+
   useEffect(() => {
-    if (canvasRef.current) selector(selectedTool, canvasRef.current, dispatch);
-  }, [selectedTool, dispatch]);
+    if (canvasRef.current) selector(tool, canvasRef.current, dispatch);
+  }, [tool, dispatch]);
+
+  const canvasSnap = () => {
+    if (canvasRef.current) {
+      const undoListUpd = [...undoList, canvasRef.current.toDataURL()];
+      dispatch(setUndoList(undoListUpd));
+    }
+  };
 
   return (
     <CanvasStyled ref={ref}>
@@ -40,6 +53,7 @@ const Canvas: FC = () => {
         width={width}
         height={height}
         ref={canvasRef}
+        onMouseDown={canvasSnap}
       ></canvas>
     </CanvasStyled>
   );
