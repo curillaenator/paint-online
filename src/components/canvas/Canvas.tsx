@@ -1,5 +1,11 @@
-import React, { FC, useRef, useLayoutEffect, useState } from "react";
+import React, { FC, useRef, useEffect, useCallback } from "react";
 import styled from "styled-components";
+
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import useDivSize from "../../hooks/useDivSize";
+
+import Brush from "../../tools/Brush";
+import Rect from "../../tools/Rect";
 
 import { colors } from "../../colors/colors";
 
@@ -10,6 +16,7 @@ const CanvasStyled = styled.div`
   width: 100%;
   height: calc(100% - 12rem);
   min-height: 25rem;
+  padding: 0 2rem;
 
   .canvas {
     background-color: ${colors.white};
@@ -17,13 +24,39 @@ const CanvasStyled = styled.div`
 `;
 
 const Canvas: FC = () => {
-  const canvasRef = useRef(null);
+  const dispatch = useAppDispatch();
+  const selectedTool = useAppSelector((state) => state.main.tool);
 
-  console.log(canvasRef.current);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [width, height, ref] = useDivSize();
+
+  const toolSelect = useCallback(() => {
+    switch (selectedTool) {
+      case "brush":
+        if (canvasRef.current) new Brush(canvasRef.current);
+        break;
+
+      case "rect":
+        if (canvasRef.current) new Rect(canvasRef.current);
+        break;
+
+      default:
+        break;
+    }
+  }, [selectedTool]);
+
+  useEffect(() => {
+    if (canvasRef.current) toolSelect();
+  }, [selectedTool]);
 
   return (
-    <CanvasStyled ref={canvasRef}>
-      <canvas className="canvas" width={600} height={400}></canvas>
+    <CanvasStyled ref={ref}>
+      <canvas
+        className="canvas"
+        width={width}
+        height={height}
+        ref={canvasRef}
+      ></canvas>
     </CanvasStyled>
   );
 };

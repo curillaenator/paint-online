@@ -13,7 +13,6 @@ import { icons } from "../../assets/icons";
 
 const HeaderStyled = styled.header`
   margin-bottom: 1rem;
-  padding: 0 2rem;
 
   .upper {
     display: flex;
